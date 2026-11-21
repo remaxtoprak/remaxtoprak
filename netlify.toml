@@ -1,0 +1,14 @@
+# RE/MAX Toprak: site dosyaları remax-toprak-yayin.zip içinde.
+# Her yayında zip açılır, site/ klasörü yayınlanır ve /api/ilanlar fonksiyonu çalışır.
+[build]
+  command = "rm -rf site && mkdir -p site && unzip -o -q remax-toprak-yayin.zip -d site"
+  publish = "site"
+  functions = "site/netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+[[headers]]
+  for = "/data/*"
+  [headers.values]
+    Cache-Control = "public, max-age=300"

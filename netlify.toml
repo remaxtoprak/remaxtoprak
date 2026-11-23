@@ -1,7 +1,8 @@
 # RE/MAX Toprak: site dosyaları remax-toprak-yayin.zip içinde.
 # Her yayında zip açılır, site/ klasörü yayınlanır ve /api/ilanlar fonksiyonu çalışır.
+# Fotoğraf kalitesi: RE/MAX küçük boy (T, 400x300) yerine M (1200x900) kullanılır.
 [build]
-  command = "rm -rf site && mkdir -p site && unzip -o -q remax-toprak-yayin.zip -d site"
+  command = '''rm -rf site && mkdir -p site && unzip -o -q remax-toprak-yayin.zip -d site && sed -i "s#CFG.photoBase + l.img :#CFG.photoBase + l.img.replace('/T/', '/M/') :#" site/js/app.js && grep -q "replace('/T/', '/M/')" site/js/app.js'''
   publish = "site"
   functions = "site/netlify/functions"
 

@@ -5,6 +5,7 @@
 //  2) Ana sayfa: değerleme formu kendi sayfasına (#degerleme), danışman önizlemesi kaldırıldı
 //  3) Hesaplama: sadece araç kartları; her araç kendi sayfasında (#hesaplama-<arac>)
 //  4) SSS: en çok sorulan 10 soru; tüm sorular Rehber'de (#beylikduzu-sorular)
+//  5) Beylikdüzü haritaları sayfası (#beylikduzu-haritalari): belediyenin resmi PDF'lerine bağlantı
 
 const CALCS = {
   'kredi': ['Konut kredisi hesaplama', 'Kredi', 'Kredi tutarı, vade ve faize göre aylık taksitinizi ve toplam geri ödemeyi görün.'],
@@ -154,6 +155,108 @@ function yama(f) {
     '#calcHub .post h3{font-size:22px}\n' +
     '.faq-more{margin:4px 0 22px;font-size:16px}.faq-more a{color:#DC1C2E;font-weight:600}\n' +
     '.doc .faq{max-width:none;margin-top:24px}\n';
+
+  f['index.html'] = h; f['js/app.js'] = js; f['css/site.css'] = css;
+  return haritalar(f);
+}
+
+// 5) Beylikdüzü haritaları sayfası (resmi PDF'lere bağlantı; dosyalar kopyalanmaz)
+const MB = 'https://www.beylikduzu.istanbul/content/media/Uploads/haritalar/';
+const MAPS_GENEL = [
+  ['Beylikdüzü ilçe haritası', 'İlçenin tamamı, mahalle sınırlarıyla', 'Harita/Beylikd%C3%BCz%C3%BC%20%C4%B0l%C3%A7e%20Haritas%C4%B1_142x102.pdf', 5.4],
+  ['Beylikdüzü ulaşım haritası', 'Metrobüs, ana yollar ve toplu taşıma', 'Ula%C5%9F%C4%B1m%20Haritas%C4%B1.pdf', 3.9]
+];
+const MAPS_MAHALLE = [
+  ['Adnan Kahveci', 'Harita/Adnan%20Kahveci%20Mahallesi_62x82.pdf', 1.7],
+  ['Barış', 'Harita/Bar%C4%B1%C5%9F%20Mahallesi_62x62.pdf', 1.6],
+  ['Büyükşehir', 'Harita/B%C3%BCy%C3%BCk%C5%9Fehir%20Mahallesi_42x42.pdf', 0.8],
+  ['Cumhuriyet', 'Harita/Cumhuriyet%20Mahallesi_42X47.pdf', 0.8],
+  ['Dereağzı', 'Harita/Derea%C4%9Fz%C4%B1%20Mahallesi_82x82.pdf', 2.4],
+  ['Gürpınar', 'Harita/G%C3%BCrp%C4%B1nar%20Mahallesi_52x82.pdf', 1.5],
+  ['Kavaklı', 'Harita/Kavakl%C4%B1%20Mahallesi_82x62.pdf', 1.9],
+  ['Marmara', 'Harita/Marmara%20Mahallesi_72x62.pdf', 1.2],
+  ['Sahil', 'Harita/Sahil%20Mahallesi_62x52.pdf', 1.2],
+  ['Yakuplu', 'Harita/Yakuplu%20Mahallesi_82X92.pdf', 1.9]
+];
+const MAPS_YASAM = [
+  ['Okul yerleri', 'İlçedeki mevcut okullar', '2025/Beylikd%C3%BCz%C3%BC%20Okul%20Yerleri%20Haritas%C4%B1_124x102.pdf', 3.0],
+  ['Sosyal mekanlar', 'Kültür, spor ve sosyal tesisler', '2025/Sosyal%20Mekan%20Haritasi_124x102.pdf', 3.2],
+  ['Yeşil alanlar', 'Parklar ve yeşil alan planı', 'demografi/o--yes%CC%A7il-alanlar-uygulama-plani-ve-mevcut-durum-1363.pdf', 11.6],
+  ['Cami yerleri', 'İlçedeki camiler', '2025/Beylikd%C3%BCz%C3%BC%20Camii%20Yerleri%20Haritas%C4%B1_124x102-.pdf', 6.9],
+  ['Nüfus yoğunluğu (2022)', 'Mahallelere göre yoğunluk', 'a%C4%9Fustos/N%C3%BCfus_Yo%C4%9Funlu%C4%9Fu_2022.pdf', 0.7],
+  ['Bina kat adetleri', 'Yapıların kat sayıları', 'demografi/o%CC%88---bina-kat-adetleri-haritasi-3801.pdf', 22.1]
+];
+const MAPS_ONLINE = [
+  ['Kent Rehberi', 'Adres, kurum ve tesis arama', 'https://cbs.beylikduzu.istanbul/GiSoftGis/#/cityguidepublic'],
+  ['E-İmar sorgulama', 'Parselin imar durumunu öğrenin', 'https://cbs.beylikduzu.istanbul/GiSoftGis/#/ezoning'],
+  ['Plan askı listesi', 'Askıdaki imar planı değişiklikleri', 'https://cbs.beylikduzu.istanbul/GiSoftGis/#/zoningplanpublicdisplay'],
+  ['Afet (ABİS) haritası', 'Toplanma alanları ve afet bilgileri', 'https://cbs.beylikduzu.istanbul/GiSoftGis/#/cityguidepublic?ws=DISASTER_CITY_GUIDE'],
+  ['Hava kalitesi', 'İBB ölçüm istasyonu verileri', 'https://havakalitesi.ibb.gov.tr/Pages/AirQualityDetails?id=41f90c1f-570d-46cd-9beb-493d9162639a'],
+  ['Nöbetçi eczaneler', 'İstanbul Eczacı Odası listesi', 'https://www.istanbuleczaciodasi.org.tr/nobetci-eczane/#!%C4%B0stanbul/Beylikd%C3%BCz%C3%BC']
+];
+
+function haritalar(f) {
+  let h = f['index.html'], js = f['js/app.js'], css = f['css/site.css'];
+  const need = (s, a, label) => { const i = s.indexOf(a); if (i < 0) throw new Error('Yama (haritalar): bulunamadı -> ' + label); return i; };
+  const rep = (s, a, b, label) => { need(s, a, label); return s.replace(a, () => b); };
+  const mb = n => String(n).replace('.', ',') + ' MB';
+  const ext = 'target="_blank" rel="noopener"';
+  const card = (t, sub, url, extra) => '<div class="hm-card"><b>' + t + '</b><span class="hm-sub">' + sub + '</span><div class="hm-links"><a href="' + url + '" ' + ext + '>' + (extra && extra.open || 'Haritayı aç ↗') + '</a>' + (extra && extra.second || '') + '</div></div>';
+  const grid = items => '<div class="hm-grid">' + items.join('') + '</div>';
+
+  const article =
+    '\n      <article class="doc" id="doc-beylikduzu-haritalari" hidden>\n' +
+    '        <div class="crumbs"><a href="#anasayfa">Ana sayfa</a> / <a href="#rehber">Rehber</a></div>\n' +
+    '        <h2>Beylikdüzü haritaları: ilçe, mahalle ve ulaşım</h2>\n' +
+    '        <div class="meta">Rehber · Kaynak: Beylikdüzü Belediyesi Harita Paylaşım Platformu</div>\n' +
+    '        <p>Beylikdüzü’nde ev ararken mahalle sınırlarını, ulaşımı, okulları ve yeşil alanları görmek işinizi kolaylaştırır. Beylikdüzü Belediyesi’nin yayımladığı resmi haritaları ve çevrimiçi harita servislerini bu sayfada topladık. Haritalar belediyenin sitesinde PDF olarak açılır.</p>\n' +
+    '        <h3>İlçe ve ulaşım haritaları</h3>\n        ' +
+    grid(MAPS_GENEL.map(m => card(m[0], m[1] + ' · PDF ' + mb(m[3]), MB + m[2]))) + '\n' +
+    '        <h3>Mahalle haritaları</h3>\n        <p>Beylikdüzü’nün 10 mahallesinin her biri için ayrı harita var. Haritayı açabilir ya da o mahalledeki güncel ilanlarımıza geçebilirsiniz.</p>\n        ' +
+    grid(MAPS_MAHALLE.map(m => card(m[0], 'Mahalle haritası · PDF ' + mb(m[2]), MB + m[1],
+      { second: '<a href="#ilanlar" data-town="Beylikdüzü" data-q="' + m[0] + ' mah">İlanlar →</a>' }))) + '\n' +
+    '        <h3>Yaşam ve çevre haritaları</h3>\n        ' +
+    grid(MAPS_YASAM.map(m => card(m[0], m[1] + ' · PDF ' + mb(m[3]), MB + m[2]))) + '\n' +
+    '        <h3>Çevrimiçi harita servisleri</h3>\n        ' +
+    grid(MAPS_ONLINE.map(m => card(m[0], m[1], m[2], { open: 'Aç ↗' }))) + '\n' +
+    '        <p class="small">Haritaların tüm hakları Beylikdüzü Belediyesi’ne aittir; bağlantılar belediyenin ve ilgili kurumların resmi sitelerine yönlendirir. Büyük dosyalar mobil veride geç açılabilir.</p>\n' +
+    '        <div class="cta"><a class="btn btn-red" href="#mahalleler">Mahallelere göre ilanlar</a><a class="btn btn-outline" href="#rehber-beylikduzu-mahalleleri">Mahalle rehberini oku</a></div>\n' +
+    '      </article>\n';
+  const docEnd = need(h, '\n\n    </div>\n  </section>\n</div>\n\n<!-- ======================= SSS', 'doc-son');
+  h = h.slice(0, docEnd) + article + h.slice(docEnd);
+
+  // Rehber kartı
+  const rc = need(h, '<a class="post" href="#beylikduzu-sorular">', 'rehber-sorular-kart');
+  const rcEnd = h.indexOf('</a>', rc) + 4;
+  h = h.slice(0, rcEnd) + '\n      <a class="post" href="#beylikduzu-haritalari"><span class="tag">Haritalar</span><h3>Beylikdüzü ilçe, mahalle ve ulaşım haritaları</h3><p>10 mahallenin resmi haritası, ulaşım, okul ve yeşil alan haritaları ile e-imar ve kent rehberi bağlantıları.</p><span class="more">Haritaları gör →</span></a>' + h.slice(rcEnd);
+
+  // Mahalle rehberi yazısı ve ana sayfa mahalleler bölümü
+  const md = need(h, 'id="doc-rehber-beylikduzu-mahalleleri"', 'mahalle-doc');
+  const mcta = h.indexOf('<div class="cta"><a class="btn btn-red" href="#mahalleler">', md);
+  if (mcta < 0) throw new Error('Yama (haritalar): mahalle cta bulunamadı');
+  h = h.slice(0, mcta) + '<p>Her mahallenin belediye tarafından hazırlanan resmi haritasına <a href="#beylikduzu-haritalari">Beylikdüzü haritaları</a> sayfasından ulaşabilirsiniz.</p>\n        ' + h.slice(mcta);
+  h = rep(h, '<a class="btn btn-outline" href="#rehber-beylikduzu-mahalleleri">Mahalle rehberini oku</a>',
+    '<a class="btn btn-outline" href="#rehber-beylikduzu-mahalleleri">Mahalle rehberini oku</a> <a class="btn btn-outline" href="#beylikduzu-haritalari">Mahalle haritaları</a>', 'ana-mahalle-btn');
+
+  // app.js: sayfa bilgisi, #mahalleler kaydırma, ilan detayında mahalle haritası bağlantısı
+  js = rep(js, "    kvkk: [", "    'beylikduzu-haritalari': [\"Beylikdüzü Haritası: Mahalle, Ulaşım ve İmar Haritaları | RE/MAX Toprak\", \"Beylikdüzü ilçe haritası, 10 mahallenin resmi haritaları, ulaşım, okul ve yeşil alan haritaları; e-imar sorgulama ve kent rehberi bağlantıları.\"],\n    kvkk: [", 'docs');
+  js = rep(js, "HOME_ANCHORS = ['kredi', 'iletisim'];", "HOME_ANCHORS = ['mahalleler', 'kredi', 'iletisim'];", 'anchors');
+  const hm = {}; MAPS_MAHALLE.forEach(m => { hm[m[0]] = MB + m[1]; });
+  js = rep(js, "  function route() {",
+    "  var HOOD_MAPS = " + JSON.stringify(hm) + ";\n" +
+    "  function hoodMapLink(l) {\n" +
+    "    if (!l.loc2 || l.loc2.town !== 'Beylikdüzü') return '';\n" +
+    "    var lab = String(l.loc2.label || '').toLocaleLowerCase('tr-TR');\n" +
+    "    for (var k in HOOD_MAPS) if (lab.indexOf(k.toLocaleLowerCase('tr-TR')) >= 0) return ' <a class=\"hm-link\" href=\"' + HOOD_MAPS[k] + '\" target=\"_blank\" rel=\"noopener\">Mahalle haritası ↗</a>';\n" +
+    "    return '';\n" +
+    "  }\n\n  function route() {", 'route-fn');
+  js = rep(js, "'<div class=\"loc\">' + esc(l.loc2.label) + '</div>", "'<div class=\"loc\">' + esc(l.loc2.label) + hoodMapLink(l) + '</div>", 'detay-loc');
+
+  css += '.hm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;margin:14px 0 30px}\n' +
+    '.hm-card{border:1px solid #e3e6ee;border-radius:14px;padding:16px 18px;background:#fff;display:flex;flex-direction:column;gap:4px}\n' +
+    '.hm-card b{font-size:17px}.hm-sub{font-size:13px;color:#667085}\n' +
+    '.hm-links{display:flex;flex-wrap:wrap;gap:16px;margin-top:8px;font-size:14px;font-weight:600}.hm-links a{color:#DC1C2E;text-decoration:none}\n' +
+    '.loc .hm-link{margin-left:10px;font-size:13px;font-weight:600;color:#DC1C2E;white-space:nowrap}\n';
 
   f['index.html'] = h; f['js/app.js'] = js; f['css/site.css'] = css;
   return f;

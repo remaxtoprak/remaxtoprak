@@ -6,6 +6,9 @@
 //  3) Hesaplama: sadece araç kartları; her araç kendi sayfasında (#hesaplama-<arac>)
 //  4) SSS: en çok sorulan 10 soru; tüm sorular Rehber'de (#beylikduzu-sorular)
 //  5) Beylikdüzü haritaları sayfası (#beylikduzu-haritalari): belediyenin resmi PDF'lerine bağlantı
+//  6) Üst menüde Beylikdüzü sekmesi ve 10 mahalle sayfası (#beylikduzu, #mahalle-<ad>): yama-mahalle.mjs
+
+import { mahalleler } from './yama-mahalle.mjs';
 
 const CALCS = {
   'kredi': ['Konut kredisi hesaplama', 'Kredi', 'Kredi tutarı, vade ve faize göre aylık taksitinizi ve toplam geri ödemeyi görün.'],
@@ -157,7 +160,7 @@ function yama(f) {
     '.doc .faq{max-width:none;margin-top:24px}\n';
 
   f['index.html'] = h; f['js/app.js'] = js; f['css/site.css'] = css;
-  return haritalar(f);
+  return mahalleler(haritalar(f));
 }
 
 // 5) Beylikdüzü haritaları sayfası (resmi PDF'lere bağlantı; dosyalar kopyalanmaz)

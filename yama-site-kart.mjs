@@ -98,4 +98,3 @@ function siteKart(f) {
 }
 
 export { siteKart, KART };
-TEST

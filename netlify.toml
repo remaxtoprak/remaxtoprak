@@ -3,7 +3,7 @@
 # hesaplama araçları, SSS), site/ klasörü yayınlanır ve /api/ilanlar fonksiyonu çalışır.
 # Yama bir parçayı bulamazsa derleme durur ve önceki sürüm yayında kalır.
 [build]
-  command = "rm -rf site && mkdir -p site && unzip -o -q remax-toprak-yayin.zip -d site && node yama.mjs site && rm -f site/netlify.toml && (cp *.webp *.jpg *.jpeg *.png *.svg site/img/ 2>/dev/null; cp favicon.ico site/ 2>/dev/null; true)"
+  command = "rm -rf site && mkdir -p site && unzip -o -q remax-toprak-yayin.zip -d site && node yama.mjs site && (node rozet.mjs site || true) && rm -f site/netlify.toml && (cp *.webp *.jpg *.jpeg *.png *.svg site/img/ 2>/dev/null; cp favicon.ico site/ 2>/dev/null; true)"
   publish = "site"
   functions = "site/netlify/functions"
 

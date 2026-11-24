@@ -1,0 +1,136 @@
+// RE/MAX Toprak – alt bilgi (footer): RE/MAX Türkiye sitesinin alt bilgisindeki bağlantılar
+// (mobil uygulama, kurumsal sayfalar, faydalı bağlantılar, hukuksal metinler, iletişim, Global/Avrupa,
+// sosyal medya) sitenin kendi tasarımıyla. Kaynak: https://remax.com.tr/tr (24 Kasım 2026).
+
+const EXT = 'target="_blank" rel="noopener"';
+const I = {
+  phone: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>',
+  globe: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>',
+  stars: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 6.5v.01M12 17.5v.01M6.5 12h.01M17.5 12h.01M8.1 8.1h.01M15.9 15.9h.01M15.9 8.1h.01M8.1 15.9h.01"/></svg>',
+  office: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V8l8-5 8 5v13M9 21v-6h6v6"/></svg>',
+  down: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>',
+  ig: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></svg>',
+  fb: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v7h4v-7h3l1-4h-4V8z"/></svg>',
+  x: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4l16 16M20 4L4 20"/></svg>',
+  yt: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10 9.5v5l4.5-2.5z"/></svg>',
+  li: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg>'
+};
+const ul = (items) => '<ul>' + items.map(([t, h, ext]) => '<li><a href="' + h + '"' + (ext ? ' ' + EXT : '') + '>' + t + '</a></li>').join('') + '</ul>';
+
+const FOOTER = `<footer>
+  <div class="wrap">
+    <div class="ft-app">
+      <div class="ft-app-text">
+        <span class="eyebrow">RE/MAX Türkiye mobil uygulaması</span>
+        <h3>Hemen indirin, binlerce özel portföyü kaçırmayın.</h3>
+      </div>
+      <div class="ft-app-btns">
+        <a class="ft-store" href="https://apps.apple.com/us/app/re-max-t%C3%BCrkiye/id6748014899" ${EXT}>${I.down}<span><small>İndirin</small>App Store</span></a>
+        <a class="ft-store" href="https://play.google.com/store/apps/details?id=com.remaxturkiye.app&amp;hl=tr" ${EXT}>${I.down}<span><small>İndirin</small>Google Play</span></a>
+      </div>
+    </div>
+    <div class="foot-top ft-cols">
+      <div>
+        <a class="foot-logo" href="/" aria-label="RE/MAX Toprak ana sayfa"><img src="img/logo-cream.svg" alt="RE/MAX Toprak Beylikdüzü emlak ofisi logosu"></a>
+        <div class="office">
+          <strong>RE/MAX Toprak</strong><br>
+          Barış Mah., Ali Çebi Cad., Beytown Apt. No:44/1<br>
+          Beylikdüzü / İstanbul<br>
+          Tel: <a href="tel:+902128792828">+90 212 879 28 28</a><br>
+          E-posta: <a href="mailto:info@remaxtoprak.com">info@remaxtoprak.com</a>
+        </div>
+        <div class="social">
+          <a href="https://www.linkedin.com/company/remaxtoprak/" ${EXT} aria-label="RE/MAX Toprak LinkedIn">${I.li}</a>
+        </div>
+      </div>
+      <div>
+        <h4>Beylikdüzü gayrimenkul</h4>
+        <ul>
+          <li><a href="/ilanlar" data-op="1">Satılık ilanlar</a></li>
+          <li><a href="/ilanlar" data-op="2">Kiralık ilanlar</a></li>
+          <li><a href="/ilanlar" data-main="1">Konut</a></li>
+          <li><a href="/ilanlar" data-main="2">Ticari</a></li>
+          <li><a href="/ilanlar" data-main="3">Arsa / Arazi</a></li>
+          <li><a href="/beylikduzu">Mahalleler</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>RE/MAX Toprak</h4>
+        ${ul([['Hakkımızda', '/hakkimizda'], ['Ofisimiz', '/ofisimiz'], ['Danışmanlarımız', '/danismanlar'], ['Gayrimenkul danışmanı olun', '/danisman-ol'], ['Ücretsiz değerleme', '/degerleme'], ['Hesaplama araçları', '/hesaplama'], ['Beylikdüzü rehberi', '/rehber'], ['Sıkça sorulan sorular', '/sss']])}
+      </div>
+      <div>
+        <h4>RE/MAX Türkiye</h4>
+        ${ul([['RE/MAX Türkiye hakkında', 'https://remax.com.tr/hakkimizda', 1], ['RE/MAX Bana Ev Bulur', 'https://remax.com.tr/gayrimenkulunuzu-bulalim', 1], ['RE/MAX ile Satalım Kiralayalım', 'https://remax.com.tr/gayrimenkullerinizi-satalim-kiralayalim', 1], ['emlaktabugun.com (Blog)', 'https://www.emlaktabugun.com/', 1], ['Deprem Bilinçlendirme', 'https://remax.com.tr/tr/deprem', 1], ["RE/MAX'le Tasarla", 'https://remaxletasarla.com/', 1], ['Destek Merkezi', 'https://remax.com.tr/destek', 1], ["MYRE/MAX'e Giriş", 'https://myremax.remax.com.tr/tr-TR/Login', 1]])}
+      </div>
+      <div>
+        <h4>Hukuksal metinler</h4>
+        ${ul([['KVKK Aydınlatma Metni', '/kvkk'], ['Gizlilik Politikası', '/gizlilik'], ['Kullanım Koşulları', '/kullanim-kosullari'], ['RE/MAX Türkiye KVKK ve Aydınlatma', 'https://remax.com.tr/kisisel-verilerin-korunmasi', 1], ['KVKK Bilgi Başvuru Formu', 'https://remax.com.tr/kvvkBasvuru.pdf', 1], ['Yasal Uyarı ve Kullanım Koşulları', 'https://remax.com.tr/yasal-uyari', 1]])}
+      </div>
+    </div>
+    <div class="ft-cards">
+      <a class="ft-card" href="tel:+908508888769">${I.phone}<span><small>RE/MAX Türkiye</small><b>+90 (850) 888 8 769</b><em>info@remax.com.tr</em></span></a>
+      <a class="ft-card" href="https://remax.com.tr/tr/ofis/detay/toprak" ${EXT}>${I.office}<span><small>RE/MAX Türkiye'de</small><b>Toprak ofis sayfası</b></span></a>
+      <a class="ft-card" href="https://global.remax.com/" ${EXT}>${I.globe}<span><small>RE/MAX</small><b>Global</b></span></a>
+      <a class="ft-card" href="https://remax.eu/" ${EXT}>${I.stars}<span><small>RE/MAX</small><b>Avrupa</b></span></a>
+    </div>
+    <p class="ft-tm">RE/MAX, RE/MAX balonu ve tasarımı, RE/MAX Collection ve RE/MAX Commercial, RE/MAX International'ın tescilli ticari markalarıdır. Türkiye ve KKTC'deki marka hakları RE/MAX Türkiye'ye aittir; izinsiz kullanılamaz.</p>
+    <div class="foot-bottom">
+      <div>
+        <div class="indep">Her ofis bağımsız olarak sahiplenilmiş ve yönetilmektedir.</div>
+        <div style="margin-top:6px">© <span id="yr"></span> RE/MAX Toprak. Tüm hakları saklıdır.</div>
+      </div>
+      <div class="ft-follow">
+        <span>RE/MAX Türkiye'yi takip edin</span>
+        <a href="https://www.instagram.com/remaxturkiye" ${EXT} aria-label="RE/MAX Türkiye Instagram">${I.ig}</a>
+        <a href="https://www.facebook.com/RemaxTurkiye/" ${EXT} aria-label="RE/MAX Türkiye Facebook">${I.fb}</a>
+        <a href="https://x.com/remaxturkiye" ${EXT} aria-label="RE/MAX Türkiye X">${I.x}</a>
+        <a href="https://www.youtube.com/user/RemaxTurkiye" ${EXT} aria-label="RE/MAX Türkiye YouTube">${I.yt}</a>
+        <a href="https://www.linkedin.com/company/remaxturkiye" ${EXT} aria-label="RE/MAX Türkiye LinkedIn">${I.li}</a>
+      </div>
+    </div>
+  </div>
+</footer>`;
+
+const CSS = `
+/* yama-footer.mjs: alt bilgi */
+.ft-app{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;padding:28px 32px;margin:0 0 56px;border-radius:20px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
+.ft-app .eyebrow{color:#9db9ea}
+.ft-app h3{color:#fff;font-size:24px;line-height:1.25;margin:6px 0 0;max-width:520px}
+.ft-app-btns{display:flex;gap:12px;flex-wrap:wrap}
+.ft-store{display:flex;align-items:center;gap:10px;padding:10px 18px;border-radius:12px;background:#fff;color:var(--dark-blue)!important;text-decoration:none;font-weight:800;font-size:16px;line-height:1.1;transition:transform .15s}
+.ft-store:hover{transform:translateY(-2px)}
+.ft-store small{display:block;font-size:11px;font-weight:600;color:var(--muted)}
+.ft-store svg,.ft-card svg,.ft-follow svg,.social svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.ft-store svg{color:var(--red)}
+.ft-cols{grid-template-columns:1.3fr 1fr 1fr 1.15fr 1.15fr;gap:32px}
+.social a{color:#fff}
+.office a{color:#fff;text-decoration:none}
+.ft-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:48px}
+.ft-card{display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:16px;border:1px solid rgba(255,255,255,.16);color:#fff;text-decoration:none;transition:background .2s,border-color .2s}
+.ft-card:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.4)}
+.ft-card svg{width:34px;height:34px;padding:7px;border-radius:50%;background:var(--red);color:#fff;stroke-width:1.8}
+.ft-card:nth-child(2) svg,.ft-card:nth-child(4) svg{background:var(--blue)}
+.ft-card small{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#9db9ea;font-weight:700}
+.ft-card b{display:block;font-size:15px}
+.ft-card em{display:block;font-style:normal;font-size:13px;color:#cfd8f3}
+.ft-tm{margin:36px 0 0;font-size:12px;line-height:1.6;color:#8f9cc0;max-width:900px}
+.ft-follow{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ft-follow span{font-size:12px;color:#9db9ea;margin-right:4px}
+.ft-follow a{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;color:#fff;border:1px solid rgba(255,255,255,.2)}
+.ft-follow a:hover{border-color:#fff}
+.ft-follow svg{width:18px;height:18px}
+@media (max-width:1100px){.ft-cols{grid-template-columns:1fr 1fr 1fr}.ft-cards{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.ft-cols{grid-template-columns:1fr 1fr}.ft-cols>div:first-child{grid-column:1/-1}.ft-cards{grid-template-columns:1fr}.ft-app{padding:22px}.ft-app h3{font-size:20px}}
+`;
+
+function footer(f) {
+  let h = f['index.html'];
+  const a = h.indexOf('<footer>'), b = h.indexOf('</footer>');
+  if (a < 0 || b < 0 || b < a) throw new Error('Yama (footer): <footer> bulunamadı');
+  if (h.indexOf('id="yr"') < 0) throw new Error('Yama (footer): yıl alanı bulunamadı');
+  f['index.html'] = h.slice(0, a) + FOOTER + h.slice(b + '</footer>'.length);
+  f['css/site.css'] += CSS;
+  return f;
+}
+
+export { footer };

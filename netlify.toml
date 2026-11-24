@@ -7,6 +7,13 @@
   publish = "site"
   functions = "site/netlify/functions"
 
+# Temiz adresler (/danismanlar, /mahalle-baris ...): bilinmeyen tüm adresler index.html'e gider.
+# Dosyalar ve /api/ilanlar fonksiyonu bu kuraldan önce gelir.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
 [functions]
   node_bundler = "esbuild"
 

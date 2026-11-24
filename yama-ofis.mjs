@@ -2,8 +2,35 @@
 // "Ofisimiz" sekmesi. yama.mjs çağırır; yama-site-sayfa.mjs'den SONRA (slider sınıfları st-* oradan gelir).
 // Görseller depo kökündeki .webp/.jpg dosyaları (ofis-gece.webp vb.); netlify.toml derlemede site/img/ içine kopyalar.
 
-// Ofis içi fotoğraflar gelince buraya eklenir: ['img/ofis-ic-1.webp', ...]
-const OFIS_IC = [];
+// Ofis fotoğrafları: RE/MAX Türkiye ofis sayfasındaki "Ofisimiz" sekmesi (remax.com.tr/tr/ofis/detay/toprak?tab=ofisimiz),
+// i.remax.com.tr sunucusundan M boyutunda (ilan fotoğraflarıyla aynı yöntem). Fotoğraf eklenir/çıkarılırsa bu liste güncellenir.
+const OFIS_IC = [
+  'd2ed60b2191c4f9abcbfdc3b8a3d0a73',
+  'c4562bdffd7045299f713695ff4adfae',
+  'd8801cb6f45342f59e0aa9f745396fe6',
+  'ea94147fa9804b2c8c7770ac456bb960',
+  '518457084b4a4096822087312c176123',
+  '8c28343d6898478983f80b892cd46a77',
+  '2f4a30b5588f4913b65e3a53a88b3ba1',
+  'ee3b34ab4ebb449880b3b7c7d3061ae6',
+  '0461a4f111954874973a010715dec9c2',
+  'a14f92c693a04084963d202fa5a9edb7',
+  '1cc9b06bbf3f4de7b0662d5d0b7ce4d2',
+  '84b9329bbd664556a0b440711477ce11',
+  'f1d4a1d33d2a4f038c863953a7c816ff',
+  '5b08701fe2ce439881212793c95926c9',
+  'd44678c8949a4fceb53029b9de85659a'
+].map(id => 'https://i.remax.com.tr/photos/office/1044/M/' + id + '.jpg');
+
+// Tanıtım metni: aynı RE/MAX Türkiye ofis sayfasından.
+const OFIS_YAZI = [
+  'Toprak, tarih boyunca en güvenilir ve en değerli yatırım araçlarından biri olmuştur. Değeri zamanla artan, geleceğe güvenle taşınan bu yatırım alanında doğru karar vermek ise profesyonel danışmanlık gerektirir. RE/MAX Toprak olarak amacımız; yatırımcılarımızı doğru bölgelerdeki değerli arazilerle buluşturmak ve onlara güvenli bir yatırım süreci sunmaktır.',
+  'Uzman ve deneyimli danışman kadromuzla birlikte; tarla, arsa ve yatırım arazileri konusunda kapsamlı bir hizmet sunuyoruz. Bölgesel analizler, imar durumları, gelişim potansiyeli ve yatırım geri dönüşü gibi birçok kriteri detaylı şekilde değerlendirerek müşterilerimize en doğru fırsatları sunmayı hedefliyoruz. Her yatırımın arkasında güçlü bir araştırma, doğru bilgi ve şeffaf bir danışmanlık anlayışı bulunmaktadır.',
+  'RE/MAX Toprak olarak sadece satış sürecinde değil, yatırımın her aşamasında müşterilerimizin yanında yer alıyoruz. Gayrimenkul danışmanlarımız; yatırımcıların ihtiyaçlarını, bütçelerini ve hedeflerini analiz ederek en uygun seçenekleri belirler ve süreç boyunca güvenilir bir rehberlik sağlar.',
+  'Geniş portföyümüz sayesinde farklı bütçe ve yatırım hedeflerine uygun çok sayıda seçenek sunuyor; gelişmekte olan bölgelerde değer kazanma potansiyeli yüksek arazileri yatırımcılarımızla buluşturuyoruz. Amacımız yalnızca bir satış gerçekleştirmek değil, uzun vadeli ve kazançlı yatırımlara aracılık etmektir.',
+  'RE/MAX’ın global gücü ve kurumsal altyapısıyla hareket eden RE/MAX Toprak, güven, şeffaflık ve profesyonellik ilkeleriyle hizmet vermektedir. Gayrimenkul sektöründeki deneyimimiz ve güçlü danışmanlık anlayışımızla yatırımcılarımızın geleceğe daha sağlam adımlarla ilerlemesine katkı sağlıyoruz.',
+  'Geleceğe değer katmak için doğru yatırım, doğru danışman ve doğru adres: RE/MAX Toprak.'
+];
 
 function ofis(f) {
   let html = f['index.html'], js = f['js/app.js'], css = f['css/site.css'];
@@ -24,11 +51,11 @@ function ofis(f) {
 
   // 3) Sayfalar
   const slides = ['img/ofis-gece.webp'].concat(OFIS_IC);
-  const alts = ['RE/MAX Toprak ofisi, Barış Mahallesi'].concat(OFIS_IC.map((_, i) => 'RE/MAX Toprak ofis içi ' + (i + 1)));
+  const alts = ['RE/MAX Toprak ofisi, akşam'].concat(OFIS_IC.map((_, i) => 'RE/MAX Toprak ofisi, görsel ' + (i + 1)));
   const slider = '<div class="st-slider of-slider" aria-roledescription="carousel" aria-label="RE/MAX Toprak ofis görselleri"><div class="st-track">' +
-    slides.map((s, i) => '<figure class="st-slide"><img src="' + s + '" alt="' + alts[i] + '" loading="lazy"></figure>').join('') + '</div>' +
+    slides.map((s, i) => '<figure class="st-slide"><img src="' + s + '" alt="' + alts[i] + '" loading="' + (i < 2 ? 'eager' : 'lazy') + '" referrerpolicy="no-referrer"></figure>').join('') + '</div>' +
     (slides.length > 1 ? '<button type="button" class="st-nav st-prev" aria-label="Önceki görsel">‹</button><button type="button" class="st-nav st-next" aria-label="Sonraki görsel">›</button><div class="st-count">1 / ' + slides.length + '</div>' : '') + '</div>';
-  const icGrid = OFIS_IC.length ? '<h3>Ofisimizin içinden</h3><div class="of-grid">' + OFIS_IC.map((s, i) => '<img src="' + s + '" alt="RE/MAX Toprak ofis içi ' + (i + 1) + '" loading="lazy">').join('') + '</div>' : '';
+  const icGrid = '<h3>RE/MAX Toprak – Güvenilir Yatırımın Doğru Adresi</h3>' + OFIS_YAZI.map(p => '<p>' + p + '</p>').join('');
   const maps = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('RE/MAX Toprak, Barış Mahallesi, Ali Çebi Caddesi No:44/1, Beylikdüzü, İstanbul');
 
   const pages = `

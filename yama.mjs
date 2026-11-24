@@ -16,6 +16,7 @@ import { siteSayfa } from './yama-site-sayfa.mjs';
 import { ofis } from './yama-ofis.mjs';
 import { url } from './yama-url.mjs';
 import { kimlik } from './yama-kimlik.mjs';
+import { footer } from './yama-footer.mjs';
 
 const CALCS = {
   'kredi': ['Konut kredisi hesaplama', 'Kredi', 'Kredi tutarı, vade ve faize göre aylık taksitinizi ve toplam geri ödemeyi görün.'],
@@ -167,7 +168,7 @@ function yama(f) {
     '.doc .faq{max-width:none;margin-top:24px}\n';
 
   f['index.html'] = h; f['js/app.js'] = js; f['css/site.css'] = css;
-  return kimlik(url(ofis(siteSayfa(siteKart(siteler(mahalleler(haritalar(f))))))));
+  return kimlik(footer(url(ofis(siteSayfa(siteKart(siteler(mahalleler(haritalar(f)))))))));
 }
 
 // 5) Beylikdüzü haritaları sayfası (resmi PDF'lere bağlantı; dosyalar kopyalanmaz)

@@ -10,7 +10,7 @@ function url(f) {
 
   // --- index.html: bağlantılar ve <base>
   h = h.replace(/href="#anasayfa"/g, 'href="/"').replace(/href="#([a-z0-9-]+)"/g, 'href="/$1"');
-  h = rep(h, '<head>', '<head>\n<base href="/">', 'head');
+  h = rep(h, '<head>', '<head>\n<base href="/">\n<link rel="icon" href="/favicon.ico" sizes="48x48">\n<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">', 'head');
 
   // --- app.js: koddan üretilen bağlantılar
   js = js.replace(/href=\\"#anasayfa\\"/g, 'href=\\"/\\"').replace(/href=\\"#/g, 'href=\\"/');

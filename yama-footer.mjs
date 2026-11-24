@@ -1,6 +1,6 @@
 // RE/MAX Toprak – alt bilgi (footer): RE/MAX Türkiye sitesinin alt bilgisindeki bağlantılar
-// (mobil uygulama, kurumsal sayfalar, faydalı bağlantılar, hukuksal metinler, iletişim, Global/Avrupa,
-// sosyal medya) sitenin kendi tasarımıyla. Kaynak: https://remax.com.tr/tr (24 Kasım 2026).
+// (mobil uygulama, hizmetler, hukuksal metinler, iletişim, ödüller, sosyal medya) RE/MAX Toprak'a
+// uyarlanmış, sitenin kendi tasarımıyla. Ödül rozetleri derlemede rozet.mjs ile şeffaf PNG'ye çevrilir. Kaynak: https://remax.com.tr/tr (24 Kasım 2026).
 
 const EXT = 'target="_blank" rel="noopener"';
 const I = {
@@ -22,15 +22,15 @@ const FOOTER = `<footer>
   <div class="wrap">
     <div class="ft-app">
       <div class="ft-app-text">
-        <span class="eyebrow">RE/MAX Türkiye mobil uygulaması</span>
-        <h3>Hemen indirin, binlerce özel portföyü kaçırmayın.</h3>
-        <p>Ücretsiz <b>RE/MAX Türkiye</b> uygulamasıyla ilanları arayın, favorilerinizi kaydedin, danışmanınıza tek dokunuşla ulaşın.</p>
+        <span class="eyebrow">RE/MAX Toprak ilanları cebinizde</span>
+        <h3>Hemen indirin, RE/MAX Toprak portföyünü kaçırmayın.</h3>
+        <p>RE/MAX Toprak'ın tüm ilanları ücretsiz <b>RE/MAX</b> mobil uygulamasında: ilanları arayın, favorilerinizi kaydedin, danışmanımıza tek dokunuşla ulaşın.</p>
         <div class="ft-app-btns">
           <a class="ft-badge" href="https://apps.apple.com/us/app/re-max-t%C3%BCrkiye/id6748014899" ${EXT}><img src="https://remax.com.tr/app_store.svg" alt="App Store'dan indirin" width="170" height="51" loading="lazy" referrerpolicy="no-referrer" onerror="this.outerHTML='<b class=ft-badge-txt>'+this.alt+'</b>'"><span>iPhone ve iPad</span></a>
           <a class="ft-badge" href="https://play.google.com/store/apps/details?id=com.remaxturkiye.app&amp;hl=tr" ${EXT}><img src="https://remax.com.tr/google_play.svg" alt="Google Play'den alın" width="170" height="51" loading="lazy" referrerpolicy="no-referrer" onerror="this.outerHTML='<b class=ft-badge-txt>'+this.alt+'</b>'"><span>Android</span></a>
         </div>
       </div>
-      <img class="ft-phone" src="https://remax.com.tr/_next/image?url=%2Fmock-1.png&amp;w=640&amp;q=75" alt="RE/MAX Türkiye mobil uygulaması ekranı" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">
+      <img class="ft-phone" src="https://remax.com.tr/_next/image?url=%2Fmock-1.png&amp;w=640&amp;q=75" alt="RE/MAX mobil uygulaması ekranı" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">
     </div>
     <div class="foot-top ft-cols">
       <div>
@@ -62,25 +62,25 @@ const FOOTER = `<footer>
       </div>
       <div>
         <h4>RE/MAX Toprak</h4>
-        ${ul([['Hakkımızda', '/hakkimizda'], ['Ofisimiz', '/ofisimiz'], ['Danışmanlarımız', '/danismanlar'], ['Gayrimenkul danışmanı olun', '/danisman-ol'], ['Ücretsiz değerleme', '/degerleme'], ['Hesaplama araçları', '/hesaplama'], ['Beylikdüzü rehberi', '/rehber'], ['Sıkça sorulan sorular', '/sss']])}
+        ${ul([['Hakkımızda', '/hakkimizda'], ['Ofisimiz', '/ofisimiz'], ['Danışmanlarımız', '/danismanlar'], ['Gayrimenkul danışmanı olun', '/danisman-ol'], ['RE/MAX Türkiye\'deki sayfamız', 'https://remax.com.tr/tr/ofis/detay/toprak', 1], ['Danışman girişi (MyRE/MAX)', 'https://myremax.remax.com.tr/tr-TR/Login', 1]])}
       </div>
       <div>
-        <h4>RE/MAX Türkiye</h4>
-        ${ul([['RE/MAX Türkiye hakkında', 'https://remax.com.tr/hakkimizda', 1], ['RE/MAX Bana Ev Bulur', 'https://remax.com.tr/gayrimenkulunuzu-bulalim', 1], ['RE/MAX ile Satalım Kiralayalım', 'https://remax.com.tr/gayrimenkullerinizi-satalim-kiralayalim', 1], ['emlaktabugun.com (Blog)', 'https://www.emlaktabugun.com/', 1], ['Deprem Bilinçlendirme', 'https://remax.com.tr/tr/deprem', 1], ["RE/MAX'le Tasarla", 'https://remaxletasarla.com/', 1], ['Destek Merkezi', 'https://remax.com.tr/destek', 1], ["MYRE/MAX'e Giriş", 'https://myremax.remax.com.tr/tr-TR/Login', 1]])}
+        <h4>Hizmetlerimiz</h4>
+        ${ul([['Size ev bulalım', '/iletisim'], ['Mülkünüzü satalım, kiralayalım', '/degerleme'], ['Ücretsiz değerleme', '/degerleme'], ['Kredi hesaplama', '/hesaplama-kredi'], ['Hesaplama araçları', '/hesaplama'], ['Beylikdüzü rehberi', '/rehber'], ['Sıkça sorulan sorular', '/sss']])}
       </div>
       <div>
         <h4>Hukuksal metinler</h4>
-        ${ul([['KVKK Aydınlatma Metni', '/kvkk'], ['Gizlilik Politikası', '/gizlilik'], ['Kullanım Koşulları', '/kullanim-kosullari'], ['RE/MAX Türkiye KVKK ve Aydınlatma', 'https://remax.com.tr/kisisel-verilerin-korunmasi', 1], ['KVKK Bilgi Başvuru Formu', 'https://remax.com.tr/kvvkBasvuru.pdf', 1], ['Yasal Uyarı ve Kullanım Koşulları', 'https://remax.com.tr/yasal-uyari', 1]])}
+        ${ul([['KVKK Aydınlatma Metni', '/kvkk'], ['Gizlilik Politikası', '/gizlilik'], ['Kullanım Koşulları', '/kullanim-kosullari'], ['İletişim', '/iletisim']])}
       </div>
     </div>
     <div class="ft-cards">
-      <a class="ft-card" href="tel:+908508888769">${I.phone}<span><small>RE/MAX Türkiye</small><b>+90 (850) 888 8 769</b><em>info@remax.com.tr</em></span></a>
-      <a class="ft-card" href="https://remax.com.tr/tr/ofis/detay/toprak" ${EXT}>${I.office}<span><small>RE/MAX Türkiye'de</small><b>Toprak ofis sayfası</b></span></a>
-      <a class="ft-card" href="https://global.remax.com/" ${EXT}>${I.globe}<span><small>RE/MAX</small><b>Global</b></span></a>
-      <a class="ft-card" href="https://remax.eu/" ${EXT}>${I.stars}<span><small>RE/MAX</small><b>Avrupa</b></span></a>
+      <a class="ft-card" href="tel:+902128792828">${I.phone}<span><small>RE/MAX Toprak</small><b>+90 212 879 28 28</b><em>info@remaxtoprak.com</em></span></a>
+      <a class="ft-card" href="https://www.google.com/maps/search/?api=1&amp;query=RE/MAX%20Toprak%2C%20Bar%C4%B1%C5%9F%20Mahallesi%2C%20Ali%20%C3%87ebi%20Caddesi%20No%3A44/1%2C%20Beylikd%C3%BCz%C3%BC%2C%20%C4%B0stanbul" ${EXT}>${I.office}<span><small>Ofisimize gelin</small><b>Yol tarifi al</b><em>Barış Mah., Beylikdüzü</em></span></a>
+      <a class="ft-card" href="/ilanlar">${I.globe}<span><small>RE/MAX Toprak</small><b>Tüm ilanlarımız</b></span></a>
+      <a class="ft-card" href="/danisman-ol">${I.stars}<span><small>Kariyer</small><b>Danışmanımız olun</b></span></a>
     </div>
     <div class="ft-awards">
-      <h4>RE/MAX Türkiye'nin ödülleri</h4>
+      <h4>RE/MAX Toprak, ödüllü RE/MAX Türkiye ağının bir parçasıdır</h4>
       <div class="ft-award-row">
         ${[['gptw_logo.png', 'Great Place to Work Certified 2025 Türkiye'], ['isverenler_logo.png', 'En İyi İşverenler – Innovation by All, Türkiye 2024'], ['GPTW-eniyi-isverenler-kadin-logo.jpg', 'En İyi İşverenler – Women, Türkiye 2024'], ['peryon--badge-post.png', 'PERYON İnsana Değer Ödülleri – Bağlılık ve Kültürel Dönüşüm KOBİ Ödülü'], ['peryon-odul-2.png', 'PERYON İnsana Değer Ödülleri – Dijital Dönüşüme Liderlik KOBİ Ödülü']].map(([f, t]) => '<figure><img src="https://remax.com.tr/' + f + '" alt="' + t + '" title="' + t + '" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.remove()"></figure>').join('')}
       </div>
@@ -92,12 +92,11 @@ const FOOTER = `<footer>
         <div style="margin-top:6px">© <span id="yr"></span> RE/MAX Toprak. Tüm hakları saklıdır.</div>
       </div>
       <div class="ft-follow">
-        <span>RE/MAX Türkiye'yi takip edin</span>
-        <a href="https://www.instagram.com/remaxturkiye" ${EXT} aria-label="RE/MAX Türkiye Instagram">${I.ig}</a>
-        <a href="https://www.facebook.com/RemaxTurkiye/" ${EXT} aria-label="RE/MAX Türkiye Facebook">${I.fb}</a>
-        <a href="https://x.com/remaxturkiye" ${EXT} aria-label="RE/MAX Türkiye X">${I.x}</a>
-        <a href="https://www.youtube.com/user/RemaxTurkiye" ${EXT} aria-label="RE/MAX Türkiye YouTube">${I.yt}</a>
-        <a href="https://www.linkedin.com/company/remaxturkiye" ${EXT} aria-label="RE/MAX Türkiye LinkedIn">${I.li}</a>
+        <span>RE/MAX Toprak'ı takip edin</span>
+        <a href="https://www.instagram.com/remaxtoprak/" ${EXT} aria-label="RE/MAX Toprak Instagram">${I.ig}</a>
+        <a href="https://www.youtube.com/@remaxtoprak" ${EXT} aria-label="RE/MAX Toprak YouTube">${I.yt}</a>
+        <a href="https://www.tiktok.com/@remaxtoprak" ${EXT} aria-label="RE/MAX Toprak TikTok">${I.tt}</a>
+        <a href="https://www.linkedin.com/company/remaxtoprak/" ${EXT} aria-label="RE/MAX Toprak LinkedIn">${I.li}</a>
       </div>
     </div>
   </div>
@@ -122,14 +121,14 @@ const CSS = `
 .ft-awards{margin-top:44px;padding-top:32px;border-top:1px solid rgba(255,255,255,.12)}
 .ft-awards h4{color:#fff;font-size:14px;letter-spacing:.12em;text-transform:uppercase;margin:0 0 18px}
 .ft-award-row{display:flex;flex-wrap:wrap;gap:16px;align-items:center}
-.ft-award-row figure{margin:0;width:118px;height:118px;border-radius:16px;background:#fff;display:grid;place-items:center;padding:10px}
+.ft-award-row figure{margin:0;width:118px;height:118px;display:grid;place-items:center}
 .ft-award-row img{max-width:100%;max-height:100%;object-fit:contain}
 .ft-store{display:flex;align-items:center;gap:10px;padding:10px 18px;border-radius:12px;background:#fff;color:var(--dark-blue)!important;text-decoration:none;font-weight:800;font-size:16px;line-height:1.1;transition:transform .15s}
 .ft-store:hover{transform:translateY(-2px)}
 .ft-store small{display:block;font-size:11px;font-weight:600;color:var(--muted)}
 .ft-store svg,.ft-card svg,.ft-follow svg,.social svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
 .ft-store svg{color:var(--red)}
-.ft-cols{grid-template-columns:1.3fr 1fr 1fr 1.15fr 1.15fr;gap:32px}
+.ft-cols{grid-template-columns:1.4fr 1fr 1fr 1.1fr 1fr;gap:32px}
 .social a{color:#fff}
 .office a{color:#fff;text-decoration:none}
 .ft-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:48px}

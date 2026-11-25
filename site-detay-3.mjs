@@ -2,7 +2,8 @@
 const EJ = 'https://imaj.emlakjet.com/resize/1200/0/listing/';
 const EJU = s => 'https://www.emlakjet.com/ilan/' + s;
 const HEU = s => 'https://www.hepsiemlak.com' + s;
-const ej = a => a.map(x => EJ + x);
+// emlakjet görselleri yalnızca kendi sitesinde açılıyor (başka sitelerden bağlantıya izin vermiyor); bu yüzden görsel listesi şimdilik boş.
+const ej = a => (EJ && a && []);
 const NOT = 'Bilgiler Kasım 2026’da yayında olan satılık ve kiralık ilanlardan derlenmiştir; ilanlar arasında küçük farklar olabilir.';
 
 export const D3 = {
